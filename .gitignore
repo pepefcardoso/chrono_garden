@@ -43,3 +43,11 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+# Code generation outputs (Freezed + json_serializable)
+# These are re-generated locally via: make build-runner
+*.g.dart
+*.freezed.dart
+
+# build_runner cache
+.dart_tool/build/

@@ -1,20 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 void main() {
-  runApp(const MainApp());
+  runApp(const ProviderScope(child: _ChronoGardenApp()));
 }
 
-class MainApp extends StatelessWidget {
-  const MainApp({super.key});
+class _ChronoGardenApp extends StatelessWidget {
+  const _ChronoGardenApp();
 
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-      home: Scaffold(
-        body: Center(
-          child: Text('Hello World!'),
-        ),
-      ),
+      title: 'Chrono Garden',
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(body: Center(child: Text('Sprint 0 — Foundation OK'))),
     );
   }
 }

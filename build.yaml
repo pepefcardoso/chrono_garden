@@ -1,0 +1,19 @@
+# build.yaml — Configures build_runner for Freezed + json_serializable.
+# Run:  dart run build_runner build --delete-conflicting-outputs
+# Or:   make build-runner
+
+targets:
+  $default:
+    builders:
+      freezed:
+        options:
+          # Generates .freezed.dart alongside the source file.
+          # All generated files are git-ignored (see .gitignore).
+          build_extensions:
+            ".dart": [".freezed.dart"]
+      json_serializable:
+        options:
+          # Always emit toJson() even when values are default.
+          explicit_to_json: true
+          # Omit null fields from serialized JSON to keep save payloads compact.
+          include_if_null: false

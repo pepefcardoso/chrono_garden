@@ -1,1 +1,27 @@
 include: package:flutter_lints/flutter.yaml
+
+analyzer:
+  strong-mode:
+    implicit-casts: false
+    implicit-dynamic: false
+  errors:
+    missing_required_param: error
+    missing_return: error
+    todo: ignore
+
+linter:
+  rules:
+    prefer_const_constructors: true
+    prefer_const_constructors_in_immutables: true
+    prefer_const_declarations: true
+    prefer_const_literals_to_create_immutables: true
+
+    always_specify_types: false
+    avoid_dynamic_calls: true
+    avoid_print: true
+
+    prefer_single_quotes: true
+    require_trailing_commas: true # ensures dart format produces clean diffs
+    sort_pub_dependencies: true
+    use_super_parameters: true # Dart 2.17+ super-initializer syntax
+    unnecessary_nullable_for_final_variable_declarations: true
