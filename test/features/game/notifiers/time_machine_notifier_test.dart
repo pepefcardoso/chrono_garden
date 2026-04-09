@@ -260,7 +260,9 @@ void main() {
       final TimeMachineNotifier n = single(
         const CellData(type: PlantType.seed),
       );
-      for (int i = 0; i < 4; i++) { n.tick(); }
+      for (int i = 0; i < 4; i++) {
+        n.tick();
+      }
       expect(_read(n).current.grid.cells.first.type, PlantType.youngPlant);
     });
 
@@ -268,7 +270,9 @@ void main() {
       final TimeMachineNotifier n = single(
         const CellData(type: PlantType.seed),
       );
-      for (int i = 0; i < 6; i++) { n.tick(); }
+      for (int i = 0; i < 6; i++) {
+        n.tick();
+      }
       expect(_read(n).current.grid.cells.first.type, PlantType.maturePlant);
     });
 
@@ -276,19 +280,25 @@ void main() {
       final TimeMachineNotifier n = single(
         const CellData(type: PlantType.maturePlant),
       );
-      for (int i = 0; i < 10; i++) { n.tick(); }
+      for (int i = 0; i < 10; i++) {
+        n.tick();
+      }
       expect(_read(n).current.grid.cells.first.type, PlantType.maturePlant);
     });
 
     test('obstacle never changes type', () {
       final TimeMachineNotifier n = single(CellData.obstacle);
-      for (int i = 0; i < 5; i++) { n.tick(); }
+      for (int i = 0; i < 5; i++) {
+        n.tick();
+      }
       expect(_read(n).current.grid.cells.first.type, PlantType.obstacle);
     });
 
     test('empty cell never changes type', () {
       final TimeMachineNotifier n = single(CellData.empty);
-      for (int i = 0; i < 5; i++) { n.tick(); }
+      for (int i = 0; i < 5; i++) {
+        n.tick();
+      }
       expect(_read(n).current.grid.cells.first.type, PlantType.empty);
     });
 
@@ -296,7 +306,9 @@ void main() {
       final TimeMachineNotifier n = single(
         const CellData(type: PlantType.seed, isGoalCell: true),
       );
-      for (int i = 0; i < 6; i++) { n.tick(); }
+      for (int i = 0; i < 6; i++) {
+        n.tick();
+      }
       final CellData final_ = _read(n).current.grid.cells.first;
       expect(final_.type, PlantType.maturePlant);
       expect(final_.isGoalCell, isTrue);
@@ -411,6 +423,21 @@ void main() {
         ],
       );
       expect(n.checkVictory(), isFalse);
+    });
+  });
+
+  group('loadLevel()', () {
+    test('resets history to a single entry', () {
+      final TimeMachineNotifier n = _notifier();
+      n.tick();
+      n.tick();
+      final GameState level = TimeMachineNotifier.blankState(rows: 8, cols: 8);
+      n.loadLevel(level);
+      expect(_read(n).historyLength, 1);
+      expect(_read(n).currentIndex, 0);
+      expect(_read(n).canUndo, isFalse);
+      expect(_read(n).canRedo, isFalse);
+      expect(_read(n).current, equals(level));
     });
   });
 

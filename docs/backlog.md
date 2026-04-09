@@ -43,7 +43,7 @@
 | ID        | Tarefa Técnica                                                                                                                                                                                            | Esforço | Sprint | Status |
 | --------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------- | ------ | ------ |
 | **T-001** | Criar as models `@freezed`: `GameState`, `GridData`, `CellData`. Definir enums de entidades (Vazio, Semente, Planta_Fase1, etc). Implementar Flyweight nas entidades estáticas.                           | 0.5d    | S1     | ✅      |
-| **T-002** | Criar `TimeMachineNotifier` (Riverpod `StateNotifier`). Implementar lógica base: array circular/pilha `List<GameState>` com tamanho máximo (20). Funções `tick()` (avança e gera novo estado) e `undo()`. | 1d      | S1     | ⬜      |
+| **T-002** | Criar `TimeMachineNotifier` (Riverpod `StateNotifier`). Implementar lógica base: array circular/pilha `List<GameState>` com tamanho máximo (20). Funções `tick()` (avança e gera novo estado) e `undo()`. | 1d      | S1     | ✅      |
 
 ### US-02 — Lógica Determinística de Crescimento
 
@@ -95,9 +95,8 @@
 
 ### Sprint 1 (Motor e Fundações — Bloqueadores)
 
-1. `T-002` — Criação do Notifier de Time Travel — **A espinha dorsal da mecânica principal.**
-2. `T-003` — Motor Determinístico no `tick()` — **Onde a lógica real de jogo vive.**
-3. `T-004` — Criação dos níveis (Hardcoded JSON) — **Necessário para alimentar a UI no Sprint 2.**
+1. `T-003` — Motor Determinístico no `tick()` — **Onde a lógica real de jogo vive.**
+2. `T-004` — Criação dos níveis (Hardcoded JSON) — **Necessário para alimentar a UI no Sprint 2.**
 
 ### Sprint 2 (Core Gameplay Visual)
 

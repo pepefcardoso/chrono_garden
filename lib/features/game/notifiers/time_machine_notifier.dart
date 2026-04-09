@@ -1,3 +1,4 @@
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'package:chrono_garden/features/game/models/cell_data.dart';
@@ -5,6 +6,8 @@ import 'package:chrono_garden/features/game/models/game_state.dart';
 import 'package:chrono_garden/features/game/models/grid_data.dart';
 import 'package:chrono_garden/features/game/models/inventory.dart';
 import 'package:chrono_garden/features/game/models/plant_type.dart';
+
+part 'time_machine_notifier.freezed.dart';
 
 const int kMaxHistorySize = 20;
 
@@ -15,24 +18,15 @@ timeMachineProvider = StateNotifierProvider.autoDispose(
   ),
 );
 
-class TimeMachineState {
-  const TimeMachineState({
-    required this.current,
-    required this.historyLength,
-    required this.currentIndex,
-    required this.canUndo,
-    required this.canRedo,
-  });
-
-  final GameState current;
-
-  final int historyLength;
-
-  final int currentIndex;
-
-  final bool canUndo;
-
-  final bool canRedo;
+@freezed
+class TimeMachineState with _$TimeMachineState {
+  const factory TimeMachineState({
+    required GameState current,
+    required int historyLength,
+    required int currentIndex,
+    required bool canUndo,
+    required bool canRedo,
+  }) = _TimeMachineState;
 }
 
 class TimeMachineNotifier extends StateNotifier<TimeMachineState> {
@@ -79,11 +73,9 @@ class TimeMachineNotifier extends StateNotifier<TimeMachineState> {
 
     if (_history.length > kMaxHistorySize) {
       _history.removeAt(0);
-    } else {
-      _currentIndex = _history.length - 1;
     }
-
     _currentIndex = _history.length - 1;
+
     _emit();
     return next;
   }
@@ -145,6 +137,25 @@ class TimeMachineNotifier extends StateNotifier<TimeMachineState> {
     return true;
   }
 
+  bool checkVictory() {
+    final List<CellData> cells = state.current.grid.cells;
+    final Iterable<CellData> goalCells = cells.where(
+      (CellData c) => c.isGoalCell,
+    );
+
+    if (goalCells.isEmpty) return false;
+
+    return goalCells.every((CellData c) => c.type == PlantType.maturePlant);
+  }
+
+  void loadLevel(GameState levelInitialState) {
+    _history
+      ..clear()
+      ..add(levelInitialState);
+    _currentIndex = 0;
+    _emit();
+  }
+
   GameState _computeNextState(GameState current) {
     final GridData grid = current.grid;
     final List<CellData> newCells = List<CellData>.of(
@@ -198,17 +209,6 @@ class TimeMachineNotifier extends StateNotifier<TimeMachineState> {
         }
         return cell.copyWith(turnsInState: next);
     }
-  }
-
-  bool checkVictory() {
-    final List<CellData> cells = state.current.grid.cells;
-    final Iterable<CellData> goalCells = cells.where(
-      (CellData c) => c.isGoalCell,
-    );
-
-    if (goalCells.isEmpty) return false;
-
-    return goalCells.every((CellData c) => c.type == PlantType.maturePlant);
   }
 
   void _truncateFuture() {
