@@ -4,7 +4,6 @@ part 'inventory.freezed.dart';
 part 'inventory.g.dart';
 
 @freezed
-@JsonSerializable(includeIfNull: false)
 class Inventory with _$Inventory {
   const factory Inventory({@Default(3) int seedCount}) = _Inventory;
 

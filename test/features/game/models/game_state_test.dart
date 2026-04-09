@@ -41,14 +41,14 @@ void main() {
   group('CellData', () {
     group('Flyweight', () {
       test('CellData.empty is the identical object when accessed twice', () {
-        final CellData a = CellData.empty;
-        final CellData b = CellData.empty;
+        const CellData a = CellData.empty;
+        const CellData b = CellData.empty;
         expect(identical(a, b), isTrue);
       });
 
       test('CellData.obstacle is the identical object when accessed twice', () {
-        final CellData a = CellData.obstacle;
-        final CellData b = CellData.obstacle;
+        const CellData a = CellData.obstacle;
+        const CellData b = CellData.obstacle;
         expect(identical(a, b), isTrue);
       });
 
@@ -244,7 +244,7 @@ void main() {
 
       test('copyWith does not mutate original', () {
         final GameState original = _makeState(turn: 1);
-        original.copyWith(currentTurn: 99);
+        final GameState _ = original.copyWith(currentTurn: 99);
         expect(original.currentTurn, 1);
       });
 

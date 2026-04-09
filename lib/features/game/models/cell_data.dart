@@ -6,7 +6,6 @@ part 'cell_data.freezed.dart';
 part 'cell_data.g.dart';
 
 @freezed
-@JsonSerializable(includeIfNull: false)
 class CellData with _$CellData {
   const factory CellData({
     required PlantType type,

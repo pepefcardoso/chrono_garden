@@ -244,11 +244,11 @@ void main() {
   });
 
   group('growth engine', () {
-    TimeMachineNotifier _single(CellData cell) =>
+    TimeMachineNotifier single(CellData cell) =>
         _notifier(rows: 1, cols: 1, cells: <CellData>[cell]);
 
     test('seed transitions to sprout after 2 ticks', () {
-      final TimeMachineNotifier n = _single(
+      final TimeMachineNotifier n = single(
         const CellData(type: PlantType.seed),
       );
       n.tick();
@@ -257,46 +257,46 @@ void main() {
     });
 
     test('sprout transitions to youngPlant after 2 more ticks', () {
-      final TimeMachineNotifier n = _single(
+      final TimeMachineNotifier n = single(
         const CellData(type: PlantType.seed),
       );
-      for (int i = 0; i < 4; i++) n.tick();
+      for (int i = 0; i < 4; i++) { n.tick(); }
       expect(_read(n).current.grid.cells.first.type, PlantType.youngPlant);
     });
 
     test('youngPlant transitions to maturePlant after 2 more ticks', () {
-      final TimeMachineNotifier n = _single(
+      final TimeMachineNotifier n = single(
         const CellData(type: PlantType.seed),
       );
-      for (int i = 0; i < 6; i++) n.tick();
+      for (int i = 0; i < 6; i++) { n.tick(); }
       expect(_read(n).current.grid.cells.first.type, PlantType.maturePlant);
     });
 
     test('maturePlant does not regress', () {
-      final TimeMachineNotifier n = _single(
+      final TimeMachineNotifier n = single(
         const CellData(type: PlantType.maturePlant),
       );
-      for (int i = 0; i < 10; i++) n.tick();
+      for (int i = 0; i < 10; i++) { n.tick(); }
       expect(_read(n).current.grid.cells.first.type, PlantType.maturePlant);
     });
 
     test('obstacle never changes type', () {
-      final TimeMachineNotifier n = _single(CellData.obstacle);
-      for (int i = 0; i < 5; i++) n.tick();
+      final TimeMachineNotifier n = single(CellData.obstacle);
+      for (int i = 0; i < 5; i++) { n.tick(); }
       expect(_read(n).current.grid.cells.first.type, PlantType.obstacle);
     });
 
     test('empty cell never changes type', () {
-      final TimeMachineNotifier n = _single(CellData.empty);
-      for (int i = 0; i < 5; i++) n.tick();
+      final TimeMachineNotifier n = single(CellData.empty);
+      for (int i = 0; i < 5; i++) { n.tick(); }
       expect(_read(n).current.grid.cells.first.type, PlantType.empty);
     });
 
     test('isGoalCell flag is preserved through all growth stages', () {
-      final TimeMachineNotifier n = _single(
+      final TimeMachineNotifier n = single(
         const CellData(type: PlantType.seed, isGoalCell: true),
       );
-      for (int i = 0; i < 6; i++) n.tick();
+      for (int i = 0; i < 6; i++) { n.tick(); }
       final CellData final_ = _read(n).current.grid.cells.first;
       expect(final_.type, PlantType.maturePlant);
       expect(final_.isGoalCell, isTrue);
