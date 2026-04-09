@@ -2,33 +2,71 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import 'package:chrono_garden/core/router/app_router.dart';
+import 'package:chrono_garden/core/theme/app_theme.dart';
+
 void main() {
-  testWidgets('ProviderScope mounts without error', (WidgetTester tester) async {
+  testWidgets('App boots and renders splash route', (
+    WidgetTester tester,
+  ) async {
     await tester.pumpWidget(
-      const ProviderScope(
-        child: MaterialApp(
-          home: Scaffold(
-            body: Text('OK'),
-          ),
+      ProviderScope(
+        child: MaterialApp.router(
+          theme: AppTheme.light,
+          routerConfig: appRouter,
         ),
       ),
     );
+    await tester.pumpAndSettle();
 
-    expect(find.text('OK'), findsOneWidget);
+    expect(find.text('Splash'), findsOneWidget);
   });
 
-  testWidgets('App title resolves correctly', (WidgetTester tester) async {
+  testWidgets('Theme scaffold background is #F1F8E9', (
+    WidgetTester tester,
+  ) async {
     await tester.pumpWidget(
-      const ProviderScope(
-        child: MaterialApp(
-          title: 'Chrono Garden',
-          home: Scaffold(
-            body: Center(child: Text('Sprint 0 — Foundation OK')),
+      const ProviderScope(child: MaterialApp(home: Scaffold())),
+    );
+
+    final ThemeData theme = AppTheme.light;
+    expect(theme.scaffoldBackgroundColor, const Color(0xFFF1F8E9));
+  });
+
+  testWidgets('Theme primary color is Verde Natural #4CAF50', (
+    WidgetTester tester,
+  ) async {
+    final ThemeData theme = AppTheme.light;
+    expect(theme.colorScheme.primary, const Color(0xFF4CAF50));
+  });
+
+  testWidgets('Theme tertiary color is Cyan Digital #00E5FF', (
+    WidgetTester tester,
+  ) async {
+    final ThemeData theme = AppTheme.light;
+    expect(theme.colorScheme.tertiary, const Color(0xFF00E5FF));
+  });
+
+  testWidgets('ElevatedButton uses StadiumBorder (pill shape)', (
+    WidgetTester tester,
+  ) async {
+    await tester.pumpWidget(
+      MaterialApp(
+        theme: AppTheme.light,
+        home: Scaffold(
+          body: Center(
+            child: ElevatedButton(onPressed: () {}, child: const Text('Plant')),
           ),
         ),
       ),
     );
+    await tester.pump();
 
-    expect(find.text('Sprint 0 — Foundation OK'), findsOneWidget);
+    final ElevatedButton btn = tester.widget<ElevatedButton>(
+      find.byType(ElevatedButton),
+    );
+    final ButtonStyle? style = btn.style;
+    final OutlinedBorder? shape = style?.shape?.resolve(<WidgetState>{});
+    expect(shape, isA<StadiumBorder>());
   });
 }

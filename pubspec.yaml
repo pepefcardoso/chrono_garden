@@ -33,11 +33,23 @@ dev_dependencies:
 flutter:
   uses-material-design: true
 
-  # Fonts will be registered here in T-00E (Manrope + Plus Jakarta Sans)
-  # fonts:
-  #   - family: Manrope
-  #     fonts:
-  #       - asset: assets/fonts/Manrope-Regular.ttf
-  #   - family: PlusJakartaSans
-  #     fonts:
-  #       - asset: assets/fonts/PlusJakartaSans-Regular.ttf
+  assets:
+    - assets/fonts/
+
+  fonts:
+    - family: Manrope
+      fonts:
+        - asset: assets/fonts/manrope-regular.otf
+          weight: 400
+        - asset: assets/fonts/manrope-semibold.otf
+          weight: 600
+        - asset: assets/fonts/manrope-bold.otf
+          weight: 700
+    - family: PlusJakartaSans
+      fonts:
+        - asset: assets/fonts/PlusJakartaSans-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/PlusJakartaSans-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/PlusJakartaSans-SemiBold.ttf
+          weight: 600

@@ -1,19 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import 'package:chrono_garden/core/router/app_router.dart';
+import 'package:chrono_garden/core/theme/app_theme.dart';
+
 void main() {
-  runApp(const ProviderScope(child: _ChronoGardenApp()));
+  runApp(const ProviderScope(child: ChronoGardenApp()));
 }
 
-class _ChronoGardenApp extends StatelessWidget {
-  const _ChronoGardenApp();
+class ChronoGardenApp extends StatelessWidget {
+  const ChronoGardenApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp.router(
       title: 'Chrono Garden',
       debugShowCheckedModeBanner: false,
-      home: Scaffold(body: Center(child: Text('Sprint 0 — Foundation OK'))),
+      theme: AppTheme.light,
+      routerConfig: appRouter,
     );
   }
 }
