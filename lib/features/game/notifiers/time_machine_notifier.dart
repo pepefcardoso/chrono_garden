@@ -10,10 +10,9 @@ const int kMaxHistorySize = 20;
 
 final AutoDisposeStateNotifierProvider<TimeMachineNotifier, TimeMachineState>
 timeMachineProvider = StateNotifierProvider.autoDispose(
-  (StateNotifierProviderRef<TimeMachineNotifier, TimeMachineState> ref) =>
-      TimeMachineNotifier(
-        initialState: TimeMachineNotifier.blankState(rows: 5, cols: 5),
-      ),
+  (Ref ref) => TimeMachineNotifier(
+    initialState: TimeMachineNotifier.blankState(rows: 5, cols: 5),
+  ),
 );
 
 class TimeMachineState {
@@ -119,14 +118,16 @@ class TimeMachineNotifier extends StateNotifier<TimeMachineState> {
     if (current.inventory.seedCount <= 0) return false;
 
     final int idx = row * grid.cols + col;
-    if (current.inventory.seedCount <= 0) return false;
     if (grid.cells[idx].type != PlantType.empty) return false;
 
     final List<CellData> updatedCells = List<CellData>.of(
       grid.cells,
       growable: false,
     );
-    updatedCells[idx] = const CellData(type: PlantType.seed);
+    updatedCells[idx] = CellData(
+      type: PlantType.seed,
+      isGoalCell: grid.cells[idx].isGoalCell,
+    );
 
     final GameState seeded = current.copyWith(
       grid: grid.copyWith(cells: updatedCells),
@@ -138,6 +139,7 @@ class TimeMachineNotifier extends StateNotifier<TimeMachineState> {
     _truncateFuture();
     _history.add(seeded);
     _currentIndex = _history.length - 1;
+    _emit();
 
     tick();
     return true;
@@ -170,28 +172,31 @@ class TimeMachineNotifier extends StateNotifier<TimeMachineState> {
         return cell.copyWith(turnsInState: cell.turnsInState + 1);
 
       case PlantType.seed:
-        if (cell.turnsInState >= turnsToGrow) {
+        final int next = cell.turnsInState + 1;
+        if (next >= turnsToGrow) {
           return CellData(type: PlantType.sprout, isGoalCell: cell.isGoalCell);
         }
-        return cell.copyWith(turnsInState: cell.turnsInState + 1);
+        return cell.copyWith(turnsInState: next);
 
       case PlantType.sprout:
-        if (cell.turnsInState >= turnsToGrow) {
+        final int next = cell.turnsInState + 1;
+        if (next >= turnsToGrow) {
           return CellData(
             type: PlantType.youngPlant,
             isGoalCell: cell.isGoalCell,
           );
         }
-        return cell.copyWith(turnsInState: cell.turnsInState + 1);
+        return cell.copyWith(turnsInState: next);
 
       case PlantType.youngPlant:
-        if (cell.turnsInState >= turnsToGrow) {
+        final int next = cell.turnsInState + 1;
+        if (next >= turnsToGrow) {
           return CellData(
             type: PlantType.maturePlant,
             isGoalCell: cell.isGoalCell,
           );
         }
-        return cell.copyWith(turnsInState: cell.turnsInState + 1);
+        return cell.copyWith(turnsInState: next);
     }
   }
 

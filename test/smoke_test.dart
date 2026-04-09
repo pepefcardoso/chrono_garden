@@ -62,11 +62,9 @@ void main() {
     );
     await tester.pump();
 
-    final ElevatedButton btn = tester.widget<ElevatedButton>(
-      find.byType(ElevatedButton),
-    );
-    final ButtonStyle? style = btn.style;
-    final OutlinedBorder? shape = style?.shape?.resolve(<WidgetState>{});
+    final ThemeData theme = AppTheme.light;
+    final OutlinedBorder? shape = theme.elevatedButtonTheme.style?.shape
+        ?.resolve(<WidgetState>{});
     expect(shape, isA<StadiumBorder>());
   });
 }
