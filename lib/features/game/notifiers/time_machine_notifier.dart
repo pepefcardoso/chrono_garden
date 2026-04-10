@@ -6,6 +6,7 @@ import 'package:chrono_garden/features/game/models/game_state.dart';
 import 'package:chrono_garden/features/game/models/grid_data.dart';
 import 'package:chrono_garden/features/game/models/inventory.dart';
 import 'package:chrono_garden/features/game/models/plant_type.dart';
+import 'package:chrono_garden/features/game/levels/level_data.dart';
 
 part 'time_machine_notifier.freezed.dart';
 
@@ -156,6 +157,15 @@ class TimeMachineNotifier extends StateNotifier<TimeMachineState> {
       ..add(levelInitialState);
     _currentIndex = 0;
     _emit();
+  }
+
+  void loadLevelByIndex(int index) {
+    assert(
+      index >= 0 && index < LevelData.all.length,
+      'loadLevelByIndex: index $index is out of range '
+      '(LevelData.all has ${LevelData.all.length} entries).',
+    );
+    loadLevel(LevelData.all[index]);
   }
 
   GameState _computeNextState(GameState current) {
