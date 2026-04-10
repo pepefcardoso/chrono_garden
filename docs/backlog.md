@@ -49,7 +49,7 @@
 
 | ID        | Tarefa Técnica                                                                                                                                                                                        | Esforço | Sprint | Status |
 | --------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------- | ------ | ------ |
-| **T-003** | Criar motor de regras no `tick()`. Exemplo: Iterar a matriz anterior e aplicar regras (Se célula tem "Semente" e passaram-se 2 turnos, transformar em "Planta_Fase1"). Retornar a matriz nova mutada. | 1d      | S1     | ⬜      |
+| **T-003** | Criar motor de regras no `tick()`. Exemplo: Iterar a matriz anterior e aplicar regras (Se célula tem "Semente" e passaram-se 2 turnos, transformar em "Planta_Fase1"). Retornar a matriz nova mutada. | 1d      | S1     | ✅      |
 | **T-004** | Criar os primeiros 3 níveis no formato JSON/Dart Maps (hardcoded) para injetar no `GameState` inicial. Definir layout inicial do grid ($5 \times 5$ e $8 \times 8$).                                  | 0.5d    | S1     | ⬜      |
 
 ---
@@ -95,8 +95,7 @@
 
 ### Sprint 1 (Motor e Fundações — Bloqueadores)
 
-1. `T-003` — Motor Determinístico no `tick()` — **Onde a lógica real de jogo vive.**
-2. `T-004` — Criação dos níveis (Hardcoded JSON) — **Necessário para alimentar a UI no Sprint 2.**
+1. `T-004` — Criação dos níveis (Hardcoded JSON) — **Necessário para alimentar a UI no Sprint 2.**
 
 ### Sprint 2 (Core Gameplay Visual)
 

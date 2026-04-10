@@ -11,6 +11,8 @@ part 'time_machine_notifier.freezed.dart';
 
 const int kMaxHistorySize = 20;
 
+const int kTurnsToGrow = 2;
+
 final AutoDisposeStateNotifierProvider<TimeMachineNotifier, TimeMachineState>
 timeMachineProvider = StateNotifierProvider.autoDispose(
   (Ref ref) => TimeMachineNotifier(
@@ -174,24 +176,22 @@ class TimeMachineNotifier extends StateNotifier<TimeMachineState> {
   }
 
   CellData _evolveCell(CellData cell) {
-    const int turnsToGrow = 2;
-
     switch (cell.type) {
       case PlantType.empty:
       case PlantType.obstacle:
       case PlantType.maturePlant:
-        return cell.copyWith(turnsInState: cell.turnsInState + 1);
+        return cell;
 
       case PlantType.seed:
         final int next = cell.turnsInState + 1;
-        if (next >= turnsToGrow) {
+        if (next >= kTurnsToGrow) {
           return CellData(type: PlantType.sprout, isGoalCell: cell.isGoalCell);
         }
         return cell.copyWith(turnsInState: next);
 
       case PlantType.sprout:
         final int next = cell.turnsInState + 1;
-        if (next >= turnsToGrow) {
+        if (next >= kTurnsToGrow) {
           return CellData(
             type: PlantType.youngPlant,
             isGoalCell: cell.isGoalCell,
@@ -201,7 +201,7 @@ class TimeMachineNotifier extends StateNotifier<TimeMachineState> {
 
       case PlantType.youngPlant:
         final int next = cell.turnsInState + 1;
-        if (next >= turnsToGrow) {
+        if (next >= kTurnsToGrow) {
           return CellData(
             type: PlantType.maturePlant,
             isGoalCell: cell.isGoalCell,
