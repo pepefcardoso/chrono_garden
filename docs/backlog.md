@@ -69,7 +69,7 @@
 
 | ID        | Tarefa Técnica                                                                                                                                                 | Esforço | Sprint | Status |
 | --------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------- | ------ | ------ |
-| **T-007** | Escrever shader GLSL (`ui.FragmentProgram`) de ruído/sépia para efeito de VHS temporal. Compilar via `flutter_shaders`.                                        | 1d      | S2     | ⬜      |
+| **T-007** | Escrever shader GLSL (`ui.FragmentProgram`) de ruído/sépia para efeito de VHS temporal. Compilar via `flutter_shaders`.                                        | 1d      | S2     | ✅      |
 | **T-008** | Integrar Shader no widget root da tela de jogo. Acionar a animação (duração: 300ms) sempre que a ação de `undo()` for chamada.                                 | 0.5d    | S2     | ⬜      |
 | **T-009** | Adicionar dependência `vibration`. Mapear pulso leve (`tick`) e pulso duplo/pesado para quando limite de viagem no tempo for atingido ou ao usar botão rewind. | 0.5d    | S2     | ⬜      |
 
@@ -95,7 +95,7 @@
 
 ### Sprint 2 (Core Gameplay Visual)
 
-3. `T-007` & `T-008` — Integração de Shader de distorção — **Polimento crítico da mecânica de tempo.**
+3. `T-008` — Integração de Shader de distorção — **Polimento crítico da mecânica de tempo.**
 4. `T-009` — Haptics — **Feedback tátil melhora drasticamente o feel do puzzle.**
 
 ### Sprint 3 (Envelopamento e Lançamento)

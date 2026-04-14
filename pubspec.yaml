@@ -32,6 +32,9 @@ flutter:
 
   assets:
     - assets/fonts/
+    
+  shaders:
+    - assets/shaders/vhs_rewind.frag
 
   fonts:
     - family: Manrope
