@@ -63,7 +63,7 @@
 | ID        | Tarefa Técnica                                                                                                                                                                                     | Esforço | Sprint | Status |
 | --------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------- | ------ | ------ |
 | **T-005** | Desenvolver componente `GameBoard` que escuta o `TimeMachineNotifier`. Renderizar matriz 2D top-down (GridView / CustomPaint). Aplicar paleta Secundária (`#795548`) na terra.                     | 1d      | S2     | ✅      |
-| **T-006** | Implementar HUD Superior (Contador Manrope) e HUD Inferior (Controles de Mídia/Slider de tempo). Slider deve refletir e ditar o `currentStateIndex` da pilha. Cor Terciária (`#00E5FF`) no Slider. | 1d      | S2     | ⬜      |
+| **T-006** | Implementar HUD Superior (Contador Manrope) e HUD Inferior (Controles de Mídia/Slider de tempo). Slider deve refletir e ditar o `currentStateIndex` da pilha. Cor Terciária (`#00E5FF`) no Slider. | 1d      | S2     | ✅      |
 
 ### US-04 — Feedback Sensorial (Shaders & Haptics)
 
@@ -95,8 +95,6 @@
 
 ### Sprint 2 (Core Gameplay Visual)
 
-1. `T-005` — Board Render (Grid Visual) — **Primeiro teste real se a modelagem não pesou na performance.**
-2. `T-006` — HUD e Controles de Tempo (Slider) — **Permite testar o núcleo construído no Sprint 1 de forma humana.**
 3. `T-007` & `T-008` — Integração de Shader de distorção — **Polimento crítico da mecânica de tempo.**
 4. `T-009` — Haptics — **Feedback tátil melhora drasticamente o feel do puzzle.**
 
